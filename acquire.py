@@ -48,16 +48,11 @@ def get_sales():
     else:
         response = requests.get('https://python.zgulde.net/api/v1/sales')
         data = response.json()
-        max_page = data['payload']['max_page']
-        current_page = 0
-        df = pd.DataFrame()
-        while current_page != (max_page - 1):
+        df = pd.DataFrame(data['payload']['sales'])
+        while data['payload']['next_page']:
             response = requests.get(base_url + data['payload']['next_page'])
             data = response.json()
             df = pd.concat([df, pd.DataFrame(data['payload']['sales'])])
-            current_page += 1
-            if current_page > max_page:
-                break
         df.to_csv('sales.csv')
     return df
 
