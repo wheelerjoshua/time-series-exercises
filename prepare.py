@@ -11,6 +11,7 @@ def prep_sales(df):
     df['month'] = df.index.month
     df['day_of_week'] = df.index.day_name()
     df['sales_total'] = df.sale_amount * df.item_price
+    return df
 
 def prep_opsd_germany(df):
     '''

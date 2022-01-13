@@ -56,8 +56,11 @@ def get_sales():
         df.to_csv('sales.csv')
     return df
 
-def get_commerce(sales, items, stores):
+def get_commerce():
     '''This funciton merges stores and items dataframes onto sales dataframe.'''
+    sales = get_sales()
+    items = get_items()
+    stores = get_stores()
     sales.rename(columns = {'store':'store_id', 'item':'item_id'},inplace = True)
     df = pd.merge(sales, stores, on = 'store_id', how = 'left')
     df = pd.merge(df, items, on = 'item_id', how = 'left')
